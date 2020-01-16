@@ -3,10 +3,6 @@
 # see https://github.com/MiczFlor/RPi-Jukebox-RFID for details
 # Especially the docs folder for documentation
 
-# Define Github Branch and Repo
-gbranch = "develop"
-grepo = "https://github.com/splitti/RPi-Jukebox-RFID.git"
-
 # The absolute path to the folder which contains this script
 PATHDATA="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -510,8 +506,12 @@ fi
 
 # Get github code
 cd /home/pi/
-echo "git clone $grepo --branch $gbranch "
-git clone $grepo --branch $gbranch 
+# Define Github Branch and Repo
+GBRANCH = "develop"
+GREPO = "https://github.com/splitti/RPi-Jukebox-RFID.git"
+
+echo "git clone $GREPO --branch $GBRANCH"
+git clone ${GREPO] --branch ${GBRANCH} /home/pi/RPi-Jukebox-RFID/
 
 # Jump into the Phoniebox dir
 cd RPi-Jukebox-RFID
