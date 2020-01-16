@@ -509,10 +509,10 @@ cd /home/pi/
 # Define Github Branch and Repo
 #GBRANCH = "master"
 #GREPO = "https://github.com/splitti/RPi-Jukebox-RFID.git"
-
+read INPUT
 echo "git clone $GREPO --branch $GBRANCH"
 git clone master --branch master /home/pi/RPi-Jukebox-RFID/
-
+read INPUT
 # Jump into the Phoniebox dir
 cd RPi-Jukebox-RFID
 
