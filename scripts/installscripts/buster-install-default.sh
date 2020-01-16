@@ -3,6 +3,9 @@
 # see https://github.com/MiczFlor/RPi-Jukebox-RFID for details
 # Especially the docs folder for documentation
 
+# Define Github Branch
+gbranch = "develop"
+
 # The absolute path to the folder which contains this script
 PATHDATA="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -50,7 +53,7 @@ clear
 echo "#####################################################
 #
 # CONFIGURE WIFI
-#
+#/clone
 # Requires SSID, WiFi password and the static IP you want 
 # to assign to your Phoniebox.
 # (Note: can be done manually later, if you are unsure.)
@@ -491,7 +494,7 @@ fi
 
 # Get github code
 cd /home/pi/
-git clone https://github.com/MiczFlor/RPi-Jukebox-RFID.git
+git clone --branch $gbranch https://github.com/MiczFlor/RPi-Jukebox-RFID.git
 
 # Jump into the Phoniebox dir
 cd RPi-Jukebox-RFID
