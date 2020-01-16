@@ -474,8 +474,8 @@ sudo apt-get update
 sudo apt-get --yes upgrade
 sudo apt-get install --yes libspotify-dev
 sudo apt-get --yes --allow-downgrades --allow-remove-essential --allow-change-held-packages install apt-transport-https samba samba-common-bin python-dev gcc raspberrypi-kernel-headers lighttpd php7.3-common php7.3-cgi php7.3 php7.3-fpm at mpd mpc mpg123 git ffmpeg python-mutagen python3-gpiozero resolvconf spi-tools python-spidev python3-spidev
-sudo apt-get --yes git
-sudo apt-get --yes python-pip
+sudo apt-get --yes install git
+sudo apt-get --yes install python-pip
 #sudo apt-get --yes --allow-downgrades --allow-remove-essential --allow-change-held-packages install libspotify-dev apt-transport-https samba samba-common-bin python-dev python-pip gcc raspberrypi-kernel-headers lighttpd php7.3-common php7.3-cgi php7.3 php7.3-fpm at mpd mpc mpg123 git ffmpeg python-mutagen python3-gpiozero resolvconf spi-tools python-spidev python3-spidev git
 
 # use python3.7 as default
@@ -507,7 +507,7 @@ fi
 # Get github code
 cd /home/pi/
 # Define Github Branch and Repo
-GBRANCH = "develop"
+GBRANCH = "master"
 GREPO = "https://github.com/splitti/RPi-Jukebox-RFID.git"
 
 echo "git clone $GREPO --branch $GBRANCH"
