@@ -5,7 +5,7 @@
 
 # Define Github Branch and Repo
 gbranch = "develop"
-grepo = "splitti"
+grepo = "https://github.com/splitti/RPi-Jukebox-RFID.git"
 
 # The absolute path to the folder which contains this script
 PATHDATA="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -509,7 +509,7 @@ fi
 
 # Get github code
 cd /home/pi/
-git clone --branch $gbranch https://github.com/${grepo}/RPi-Jukebox-RFID.git
+git clone $grepo --branch $gbranch 
 
 # Jump into the Phoniebox dir
 cd RPi-Jukebox-RFID
