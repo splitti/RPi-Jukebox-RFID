@@ -50,7 +50,7 @@ clear
 echo "#####################################################
 #
 # CONFIGURE WIFI
-#
+#/clone
 # Requires SSID, WiFi password and the static IP you want 
 # to assign to your Phoniebox.
 # (Note: can be done manually later, if you are unsure.)
@@ -463,17 +463,30 @@ esac
 # power management of wifi: switch off to avoid disconnecting
 sudo iwconfig wlan0 power off
 
+# Generate locales
+sudo locale-gen $LANG
+
+wget -q -O - https://apt.mopidy.com/mopidy.gpg | sudo apt-key add -
+sudo wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/buster.list
+
 # Install required packages
 sudo apt-get update
-sudo apt-get --yes --allow-downgrades --allow-remove-essential --allow-change-held-packages install libspotify-dev apt-transport-https samba samba-common-bin python-dev python-pip gcc raspberrypi-kernel-headers lighttpd php7.3-common php7.3-cgi php7.3 php7.3-fpm at mpd mpc mpg123 git ffmpeg python-mutagen python3-gpiozero resolvconf spi-tools python-spidev python3-spidev
+sudo apt-get --yes upgrade
+sudo apt-get install --yes libspotify-dev
+sudo apt-get --yes --allow-downgrades --allow-remove-essential --allow-change-held-packages install apt-transport-https samba samba-common-bin python-dev gcc raspberrypi-kernel-headers lighttpd php7.3-common php7.3-cgi php7.3 php7.3-fpm at mpd mpc mpg123 git ffmpeg python-mutagen python3-gpiozero resolvconf spi-tools python-spidev python3-spidev
+sudo apt-get --yes git
+sudo apt-get --yes python-pip
+#sudo apt-get --yes --allow-downgrades --allow-remove-essential --allow-change-held-packages install libspotify-dev apt-transport-https samba samba-common-bin python-dev python-pip gcc raspberrypi-kernel-headers lighttpd php7.3-common php7.3-cgi php7.3 php7.3-fpm at mpd mpc mpg123 git ffmpeg python-mutagen python3-gpiozero resolvconf spi-tools python-spidev python3-spidev git
+
+# use python3.7 as default
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1
 
 # Install required spotify packages
 if [ $SPOTinstall == "YES" ]
 then
-	wget -q -O - https://apt.mopidy.com/mopidy.gpg | sudo apt-key add -
-	sudo wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/buster.list
-	sudo apt-get update
-	sudo apt-get --yes --allow-downgrades --allow-remove-essential --allow-change-held-packages install mopidy
+	sudo apt-get install --yes mopidy=2.3.1-1
+	sudo python2.7 -m pip install Mopidy==2.3.*
+
 	sudo apt-get --yes --allow-downgrades --allow-remove-essential --allow-change-held-packages install libspotify12 python-cffi python-ply python-pycparser python-spotify
 	sudo rm -rf /usr/lib/python2.7/dist-packages/mopidy_spotify*
 	sudo rm -rf /usr/lib/python2.7/dist-packages/Mopidy_Spotify-*
@@ -486,12 +499,19 @@ then
 	# should be removed, if Mopidy-Iris can be installed normally
 	# pylast >= 3.0.0 removed the python2 support
 	sudo pip install pylast==2.4.0
+	# not sure tornado still needs to be downgraded now that Mopidy 3 is not installed and tornado seems to be 5.1
+    	sudo pip install 'tornado==5.0'
 	sudo pip install Mopidy-Iris
 fi
 
 # Get github code
 cd /home/pi/
-git clone https://github.com/MiczFlor/RPi-Jukebox-RFID.git
+# Define Github Branch and Repo
+GBRANCH = "develop"
+GREPO = "https://github.com/splitti/RPi-Jukebox-RFID.git"
+
+echo "git clone $GREPO --branch $GBRANCH"
+git clone ${GREPO} --branch ${GBRANCH} /home/pi/RPi-Jukebox-RFID/
 
 # Jump into the Phoniebox dir
 cd RPi-Jukebox-RFID
@@ -831,7 +851,7 @@ case "$response" in
         ;;
     *)
         cd /home/pi/RPi-Jukebox-RFID/scripts/
-        python2 RegisterDevice.py
+        python3 RegisterDevice.py
         sudo chown pi:www-data /home/pi/RPi-Jukebox-RFID/scripts/deviceName.txt
         sudo chmod 644 /home/pi/RPi-Jukebox-RFID/scripts/deviceName.txt
         ;;
