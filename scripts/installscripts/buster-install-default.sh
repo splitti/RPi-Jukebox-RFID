@@ -511,7 +511,7 @@ GBRANCH = "develop"
 GREPO = "https://github.com/splitti/RPi-Jukebox-RFID.git"
 
 echo "git clone $GREPO --branch $GBRANCH"
-git clone ${GREPO] --branch ${GBRANCH} /home/pi/RPi-Jukebox-RFID/
+git clone ${GREPO} --branch ${GBRANCH} /home/pi/RPi-Jukebox-RFID/
 
 # Jump into the Phoniebox dir
 cd RPi-Jukebox-RFID
